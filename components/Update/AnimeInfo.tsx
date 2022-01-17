@@ -31,14 +31,14 @@ function AnimeInfo({ cover_url, title, update_time, update_to }: UpdatesProps) {
         <Image
           src={cover_url}
           alt="title"
-          width={"200px"}
-          height={"300px"}
+          width={"240px"}
+          height={"320px"}
           className={styles.image}
           priority={true}
         />
-        <Typography style={{ width: "200px", lineHeight: 1, marginTop: "8px" }}>
+        <Typography style={{ width: "240px", lineHeight: 1.1, marginTop: "8px" }}>
           <Typography.Paragraph
-            ellipsis={{ rows: 2 }}
+            ellipsis={{ rows: 1 }}
             style={{ fontSize: "1rem", fontWeight: "bold" }}
           >
             {title}
