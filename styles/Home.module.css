@@ -1,8 +1,9 @@
 .container {
   padding: 0 2rem;
+  z-index: 0;
 }
 
-.main {
+/* .main {
   min-height: 100vh;
   padding: 4rem 0;
   flex: 1;
@@ -19,7 +20,7 @@
   border-top: 1px solid #eaeaea;
   justify-content: center;
   align-items: center;
-}
+} */
 
 .footer a {
   display: flex;
@@ -113,4 +114,9 @@
     width: 100%;
     flex-direction: column;
   }
+}
+
+.image {
+  border-radius: 5px;
+  border: 1px solid #e7e7e7 !important;
 }
