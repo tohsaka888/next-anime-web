@@ -14,7 +14,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import useScreenSize from "../../components/hook/useScreenSize";
 import { Source } from "../../components/styles/search.styles";
 import VideoPlayer from "../../components/VideoPlayer";
-import { AnimeDetailProps } from "./type";
+import { AnimeDetailProps } from "../../config/type";
 
 function AnimeDetail() {
   const router = useRouter();

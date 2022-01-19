@@ -1,4 +1,4 @@
-import { ResultProps } from "../../components/Result/type";
+import { ResultProps } from "../components/Result/type";
 
 type VideoListProps = {
   info: string;
