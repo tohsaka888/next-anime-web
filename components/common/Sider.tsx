@@ -10,8 +10,9 @@ function Sider() {
   }, []);
   return (
     <Box
-      w={["100px", "100px", "250px"]}
+      w={["0px", "100px", "15vw"]}
       // borderRight={"1px solid #cecece"}
+      display={["none", "unset"]}
       h={heightRef.current}
       position={"fixed"}
     >

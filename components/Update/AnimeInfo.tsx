@@ -1,4 +1,4 @@
-import { Box, Flex, Text } from "@chakra-ui/react";
+import { Box, Flex, Text, useBreakpoint } from "@chakra-ui/react";
 import { Typography } from "antd";
 import Image from "next/image";
 import React, { useContext, useState } from "react";
@@ -12,7 +12,8 @@ function AnimeInfo({ cover_url, title, update_time, update_to }: UpdatesProps) {
   const [isHover, setIsHover] = useState<boolean>(false);
   const router = useRouter();
   const props = useContext(Context);
-
+  const breakpoint = useBreakpoint();
+  
   return (
     <Flex
       flexWrap={["wrap", "nowrap"]}
@@ -36,13 +37,17 @@ function AnimeInfo({ cover_url, title, update_time, update_to }: UpdatesProps) {
         <Image
           src={cover_url}
           alt="title"
-          width={"180px"}
-          height={"240px"}
+          width={breakpoint === "base" ? "150px" : "180px"}
+          height={breakpoint === "base" ? "200px" : "240px"}
           className={styles.image}
           priority={true}
         />
         <Typography
-          style={{ width: "180px", lineHeight: 1.1, marginTop: "8px" }}
+          style={{
+            width: breakpoint === "base" ? "150px" : "180px",
+            lineHeight: 1.2,
+            margin: "8px 0px",
+          }}
         >
           <Typography.Paragraph
             ellipsis={{ rows: 1 }}
@@ -54,7 +59,7 @@ function AnimeInfo({ cover_url, title, update_time, update_to }: UpdatesProps) {
             ellipsis={{ rows: 1 }}
             style={{ margin: "5px 0px", fontSize: "12px" }}
           >
-            更新时间: {update_time}
+            更新时间: <br /> {update_time}
           </Typography.Paragraph>
           <Typography.Paragraph
             ellipsis={{ rows: 1 }}

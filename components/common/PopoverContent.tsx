@@ -1,8 +1,16 @@
-import { Box, Divider, Flex, Heading, Tag } from "@chakra-ui/react";
+import {
+  Box,
+  Divider,
+  Flex,
+  Heading,
+  Tag,
+  useBreakpoint,
+} from "@chakra-ui/react";
 import { List } from "antd";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useContext } from "react";
 import { ResultProps } from "../Result/type";
+import { Context } from "../Update/context";
 
 const RenderItem = ({
   item,
@@ -15,6 +23,7 @@ const RenderItem = ({
 }) => {
   const tagArr = item.category.split(",");
   const router = useRouter();
+  const props = useContext(Context);
   return (
     <Flex
       w={"100%"}
@@ -27,9 +36,12 @@ const RenderItem = ({
       borderRadius="5px"
       key={index}
       onClick={() => {
+        props?.setLoading(true);
         setValue(item.title);
-        const encodeTitle = encodeURIComponent(item.title)
-        router.push(`/search/${encodeTitle}`);
+        const encodeTitle = encodeURIComponent(item.title);
+        router.push(`/search/${encodeTitle}`).then(() => {
+          props?.setLoading(false);
+        });
       }}
     >
       <Heading size={"sm"} _hover={{ color: "#1890ff" }}>
@@ -53,6 +65,8 @@ function PopoverContent({
   result: ResultProps[];
   setValue: Function;
 }): JSX.Element {
+  const breakpoint = useBreakpoint();
+
   return (
     <List
       dataSource={result.slice(0, 15)}
@@ -65,7 +79,7 @@ function PopoverContent({
       renderItem={(item, index) => (
         <RenderItem item={item} index={index} setValue={setValue} />
       )}
-      style={{ width: "40vw" }}
+      style={{ width: breakpoint === "base" ? "100vw" : "40vw" }}
     />
   );
 }

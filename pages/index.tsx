@@ -7,7 +7,7 @@ import { Box } from "@chakra-ui/react";
 import useScreenSize from "../components/hook/useScreenSize";
 
 const Home: NextPage<{ dailyAnime: DailyAnimeProps[] }> = ({ dailyAnime }) => {
-  const { height } = useScreenSize();
+  const { width, height } = useScreenSize();
   return (
     <Box w={"100%"} h={height - 60} overflow={"auto"}>
       <Head>
@@ -16,22 +16,11 @@ const Home: NextPage<{ dailyAnime: DailyAnimeProps[] }> = ({ dailyAnime }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {dailyAnime.map((item, index) => (
-        <DailyAnime key={index} {...item} />
-      ))}
-
-      {/* <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{" "}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
-      </footer> */}
+      <Box w={[width, "100%"]}>
+        {dailyAnime.map((item, index) => (
+          <DailyAnime key={index} {...item} />
+        ))}
+      </Box>
     </Box>
   );
 };

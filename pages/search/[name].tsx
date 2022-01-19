@@ -4,35 +4,37 @@ import { GetStaticProps, NextPage } from "next";
 import dynamic from "next/dynamic";
 // import Image from "next/image";
 import { useRouter } from "next/router";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import useScreenSize from "../../components/hook/useScreenSize";
 import { ResultProps } from "../../components/Result/type";
 import { Score, Source } from "../../components/styles/search.styles";
+import { Context } from "../../components/Update/context";
 import { DailyAnimeProps } from "../../components/Update/type";
 import { animeUrl } from "../../config/baseUrl";
 
 const SearchResult: NextPage<{ result: ResultProps[] | [] }> = ({ result }) => {
   const router = useRouter();
-  const [loading, setLoading] = useState<boolean>(true);
   const [animeInfo, setAnimeInfo] = useState<ResultProps[]>([]);
   const { height, width } = useScreenSize();
+  const props = useContext(Context);
   const getAnimeInfo = useCallback(async () => {
     const res = await fetch(`${animeUrl}/anime/search/${router.query?.name}`);
     const data = await res.json();
     setAnimeInfo(data);
   }, [router.query?.name]);
   useEffect(() => {
+    props?.setLoading(true);
     if (result && result.length) {
       setAnimeInfo(result);
-      setLoading(false);
+      props?.setLoading(false);
     } else {
       getAnimeInfo();
-      setLoading(false);
+      props?.setLoading(false);
     }
-  }, [getAnimeInfo, result]);
+  }, [getAnimeInfo, props, result]);
   return (
-    <Spin spinning={loading}>
-      <Box h={height - 60} w={width - 250} overflow={"auto"} padding={"16px"}>
+    <Spin spinning={props?.loading}>
+      <Box h={height - 60} w={"85vw"} overflow={"auto"} padding={"16px"}>
         {animeInfo.length !== 0 ? (
           <Box>
             {animeInfo.map((anime, index) => {
@@ -54,7 +56,7 @@ const SearchResult: NextPage<{ result: ResultProps[] | [] }> = ({ result }) => {
                       cursor={"pointer"}
                       _hover={{ textDecoration: "underline" }}
                       onClick={() => {
-                        setLoading(true);
+                        props?.setLoading(true);
                         router.push(`/anime/${encodeURIComponent(anime.url)}`);
                       }}
                     >
