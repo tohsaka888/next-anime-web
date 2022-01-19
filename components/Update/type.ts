@@ -12,4 +12,9 @@ type DailyAnimeProps = {
   updates: UpdatesProps[];
 };
 
-export type { UpdatesProps, DailyAnimeProps };
+type ContextProps = {
+  loading: boolean;
+  setLoading: Function;
+};
+
+export type { UpdatesProps, DailyAnimeProps, ContextProps };
