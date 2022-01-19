@@ -28,7 +28,8 @@ const RenderItem = ({
       key={index}
       onClick={() => {
         setValue(item.title);
-        router.push(`/search/${item.title}`);
+        const encodeTitle = encodeURIComponent(item.title)
+        router.push(`/search/${encodeTitle}`);
       }}
     >
       <Heading size={"sm"} _hover={{ color: "#1890ff" }}>
