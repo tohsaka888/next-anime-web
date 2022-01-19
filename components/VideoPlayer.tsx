@@ -1,3 +1,4 @@
+import Script from "next/script";
 import * as React from "react";
 import videojs from "video.js";
 
@@ -12,12 +13,7 @@ interface IVideoPlayerProps {
 const initialOptions: videojs.PlayerOptions = {
   controls: true,
   fluid: true,
-  html5: {
-    vhs: {
-      withCredentials: true,
-    },
-  },
-
+  preload: "auto",
   controlBar: {
     volumePanel: {
       inline: false,
@@ -36,9 +32,7 @@ const VideoPlayer: React.FC<IVideoPlayerProps> = ({ options, isReady }) => {
         player.current = videojs(videoNode.current, {
           ...initialOptions,
           ...options,
-        }).ready(function () {
-          // console.log("onPlayerReady", this);
-        });
+        }).ready(function () {});
       }
     }
     if (!isReady) {
@@ -60,13 +54,21 @@ const VideoPlayer: React.FC<IVideoPlayerProps> = ({ options, isReady }) => {
             }}
             className="video-js vjs-big-play-centered"
             style={{ width: "100%", height: "100%" }}
-          />
+          >
+            {/* {options.sources && (
+              <source
+                src={options.sources[0].src}
+                type={options.sources[0].type}
+              />
+            )} */}
+          </video>
         </div>
       ) : (
         <video style={{ width: "100%", height: "100%" }} className="video-js">
           视频没有加载
         </video>
       )}
+      {/* <Script src="https://unpkg.com/@videojs/http-streaming/dist/videojs-http-streaming.js"></Script> */}
     </>
   );
 };
