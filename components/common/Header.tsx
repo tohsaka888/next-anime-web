@@ -81,7 +81,14 @@ function Header() {
             />
           </Popover>
           <InputRightElement>
-            <IconButton icon={<MdSearch size={25} />} aria-label={""} />
+            <IconButton
+              icon={<MdSearch size={25} />}
+              aria-label={""}
+              onClick={() => {
+                const encodeTitle = encodeURIComponent(value);
+                router.push(`/search/${encodeTitle}`);
+              }}
+            />
           </InputRightElement>
         </InputGroup>
       </Box>
