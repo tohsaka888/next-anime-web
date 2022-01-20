@@ -45,3 +45,34 @@ embed,
 object {
   display: inline !important;
 }
+
+.scroll::-webkit-scrollbar {
+  width: 8px;
+  height: 100%;
+}
+
+.scroll::-webkit-scrollbar-button {
+  border-radius: 8px;
+}
+
+.scroll::-webkit-resizer {
+  display: none;
+}
+
+.scroll::-webkit-scrollbar-track {
+  height: 100%;
+}
+
+.scroll::-webkit-scrollbar-thumb {
+  background-color: #cecece;
+  height: 8px;
+  border-radius: 8px;
+}
+/* 
+html::-webkit-scrollbar {
+  width: 8px;
+}
+
+html::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+} */

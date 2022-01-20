@@ -6,6 +6,7 @@ import {
   Heading,
   Tag,
   useBreakpoint,
+  useColorMode,
   Wrap,
 } from "@chakra-ui/react";
 import { Button, Image, message, Typography } from "antd";
@@ -24,12 +25,12 @@ function AnimeDetail() {
   const [isLoad, setIsLoad] = useState<boolean>(false);
   const { width, height } = useScreenSize();
   const breakpoint = useBreakpoint();
+  const { colorMode } = useColorMode();
   const getAnimeDetail = useCallback(async (url) => {
     const res = await fetch(url);
     const data = await res.json();
     setAnime(data);
   }, []);
-  console.log(breakpoint);
   useEffect(() => {
     if (router.query) {
       if (typeof router.query.url === "string") {
@@ -89,11 +90,17 @@ function AnimeDetail() {
           maxH={[height / 2, height - 100]}
           mt={["16px", "0px"]}
           justify="center"
+          className="scroll"
         >
           {anime &&
             anime.play_lists.map((item, index) => (
               <Box key={index}>
-                <Heading size={"sm"} ml={["8px", "24px"]} mb={["16px", "8px"]}>
+                <Heading
+                  size={"sm"}
+                  ml={["8px", "24px"]}
+                  mb={["16px", "8px"]}
+                  color={colorMode === "dark" ? "#fff" : "#000"}
+                >
                   {item.name}
                 </Heading>
                 <Flex
@@ -144,6 +151,7 @@ function AnimeDetail() {
                 whiteSpace={"nowrap"}
                 _hover={{ textDecoration: "underline" }}
                 w={[width - 220, "75%"]}
+                color={colorMode === "dark" ? "#fff" : "#000"}
               >
                 {anime.title}
               </Heading>
@@ -161,7 +169,12 @@ function AnimeDetail() {
             </Flex>
 
             <Flex mb={"16px"} align={"center"} display={["none", "flex"]}>
-              <Heading size={"sm"}>播放源:</Heading>
+              <Heading
+                size={"sm"}
+                color={colorMode === "dark" ? "#fff" : "#000"}
+              >
+                播放源:
+              </Heading>
               <Source>{anime.module}</Source>
             </Flex>
             <Wrap spacing={"8px"} mb={"16px"}>
@@ -175,6 +188,7 @@ function AnimeDetail() {
                   style={{
                     whiteSpace: "pre-wrap",
                     fontSize: "15px",
+                    color: colorMode === "dark" ? "#fff" : "#000",
                   }}
                   ellipsis={{
                     rows: breakpoint === "base" ? 3 : 5,

@@ -1,4 +1,4 @@
-import { Box, Flex, useBreakpoint } from "@chakra-ui/react";
+import { Box, Flex, useBreakpoint, useColorMode } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import React, { ReactNode, useEffect, useRef, useState } from "react";
 import Header from "./Header";
@@ -15,6 +15,7 @@ function Layout({ children }: Props): JSX.Element {
   const router = useRouter();
   const [loading, setLoading] = useState<boolean>(false);
   const breakpoint = useBreakpoint();
+  const { colorMode } = useColorMode();
   return (
     <Box position={"relative"}>
       <Header />

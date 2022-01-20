@@ -28,7 +28,6 @@ const VideoPlayer: React.FC<IVideoPlayerProps> = ({ options, isReady }) => {
   React.useEffect(() => {
     if (isReady) {
       if (videoNode.current) {
-        console.log(options);
         player.current = videojs(videoNode.current, {
           ...initialOptions,
           ...options,

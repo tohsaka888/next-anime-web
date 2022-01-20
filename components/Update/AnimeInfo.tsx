@@ -1,4 +1,4 @@
-import { Box, Flex, Text, useBreakpoint } from "@chakra-ui/react";
+import { Box, Flex, Text, useBreakpoint, useColorMode } from "@chakra-ui/react";
 import { Typography } from "antd";
 import Image from "next/image";
 import React, { useContext, useState } from "react";
@@ -13,7 +13,8 @@ function AnimeInfo({ cover_url, title, update_time, update_to }: UpdatesProps) {
   const router = useRouter();
   const props = useContext(Context);
   const breakpoint = useBreakpoint();
-  
+  const { colorMode } = useColorMode();
+
   return (
     <Flex
       flexWrap={["wrap", "nowrap"]}
@@ -51,19 +52,32 @@ function AnimeInfo({ cover_url, title, update_time, update_to }: UpdatesProps) {
         >
           <Typography.Paragraph
             ellipsis={{ rows: 1 }}
-            style={{ fontSize: "1rem", fontWeight: "bold", margin: "5px 0px" }}
+            style={{
+              fontSize: "1rem",
+              fontWeight: "bold",
+              margin: "5px 0px",
+              color: colorMode === "dark" ? "#fff" : "#000",
+            }}
           >
             {title}
           </Typography.Paragraph>
           <Typography.Paragraph
             ellipsis={{ rows: 1 }}
-            style={{ margin: "5px 0px", fontSize: "12px" }}
+            style={{
+              margin: "5px 0px",
+              fontSize: "12px",
+              color: colorMode === "dark" ? "#fff" : "#000",
+            }}
           >
             更新时间: <br /> {update_time}
           </Typography.Paragraph>
           <Typography.Paragraph
             ellipsis={{ rows: 1 }}
-            style={{ margin: "5px 0px", fontSize: "12px" }}
+            style={{
+              margin: "5px 0px",
+              fontSize: "12px",
+              color: colorMode === "dark" ? "#fff" : "#000",
+            }}
           >
             更新至: {update_to}
           </Typography.Paragraph>

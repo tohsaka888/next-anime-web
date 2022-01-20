@@ -27,7 +27,7 @@ function SearchArea() {
     const ws = new WebSocket(`${wsAnimeUrl}/anime/search`);
     ws.onopen = () => {
       setResult([]);
-      console.log("websocket已建立");
+      // console.log("websocket已建立");
       ws.send(value);
     };
 
@@ -39,7 +39,7 @@ function SearchArea() {
     return () => {
       ws.close();
       ws.onclose = () => {
-        console.log("websocket已关闭");
+        // console.log("websocket已关闭");
       };
     };
   }, [value]);

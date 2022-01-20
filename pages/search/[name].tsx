@@ -1,4 +1,12 @@
-import { Box, Flex, Heading, Tag, Wrap } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Heading,
+  Tag,
+  useBreakpoint,
+  useColorMode,
+  Wrap,
+} from "@chakra-ui/react";
 import { Button, Image, Result, Spin, Typography } from "antd";
 import { GetStaticProps, NextPage } from "next";
 import dynamic from "next/dynamic";
@@ -16,7 +24,9 @@ const SearchResult: NextPage<{ result: ResultProps[] | [] }> = ({ result }) => {
   const router = useRouter();
   const [animeInfo, setAnimeInfo] = useState<ResultProps[]>([]);
   const { height, width } = useScreenSize();
+  const { colorMode } = useColorMode();
   const props = useContext(Context);
+  const breakpoint = useBreakpoint();
   const getAnimeInfo = useCallback(async () => {
     const res = await fetch(`${animeUrl}/anime/search/${router.query?.name}`);
     const data = await res.json();
@@ -34,7 +44,13 @@ const SearchResult: NextPage<{ result: ResultProps[] | [] }> = ({ result }) => {
   }, [getAnimeInfo, props, result]);
   return (
     <Spin spinning={props?.loading}>
-      <Box h={height - 60} w={"85vw"} overflow={"auto"} padding={"16px"}>
+      <Box
+        h={height - 60}
+        w={[width, "85vw"]}
+        overflow={"auto"}
+        padding={"16px"}
+        overflowX={"hidden"}
+      >
         {animeInfo.length !== 0 ? (
           <Box>
             {animeInfo.map((anime, index) => {
@@ -44,17 +60,18 @@ const SearchResult: NextPage<{ result: ResultProps[] | [] }> = ({ result }) => {
                     <Image
                       src={anime.cover_url}
                       alt={anime.title}
-                      width={200}
-                      height={300}
+                      width={breakpoint === "base" ? 120 : 180}
+                      height={breakpoint === "base" ? 160 : 240}
                     />
                   </Box>
 
-                  <Box ml={"16px"}>
+                  <Box ml={"16px"} flex={1}>
                     <Heading
                       size={"md"}
                       mb={"8px"}
                       cursor={"pointer"}
                       _hover={{ textDecoration: "underline" }}
+                      color={colorMode === "dark" ? "#fff" : "#000"}
                       onClick={() => {
                         props?.setLoading(true);
                         router.push(`/anime/${encodeURIComponent(anime.url)}`);
@@ -63,11 +80,27 @@ const SearchResult: NextPage<{ result: ResultProps[] | [] }> = ({ result }) => {
                       {anime.title}
                     </Heading>
                     <Flex mb={"8px"} align={"center"}>
-                      <Heading size={"md"}>评分:</Heading>
+                      <Heading
+                        size={"md"}
+                        color={colorMode === "dark" ? "#fff" : "#000"}
+                      >
+                        评分:
+                      </Heading>
                       <Score>{anime.score}</Score>
                     </Flex>
-                    <Flex mb={"16px"} align={"center"}>
-                      <Heading size={"sm"}>播放源:</Heading>
+                    <Flex
+                      mb={"16px"}
+                      align={"center"}
+                      flexWrap={"nowrap"}
+                      overflow={"hidden"}
+                    >
+                      <Heading
+                        size={"sm"}
+                        minW={"60px"}
+                        color={colorMode === "dark" ? "#fff" : "#000"}
+                      >
+                        播放源:
+                      </Heading>
                       <Source>{anime.module}</Source>
                     </Flex>
                     <Wrap spacing={"8px"} mb={"16px"}>
@@ -75,14 +108,18 @@ const SearchResult: NextPage<{ result: ResultProps[] | [] }> = ({ result }) => {
                         <Tag key={value}>{value || "暂无标签"}</Tag>
                       ))}
                     </Wrap>
-                    <Box w={["100px", "200px", "300px", "500px", "800px"]}>
+                    <Box
+                      w={["100px", "200px", "300px", "500px", "800px"]}
+                      display={["none", "block"]}
+                    >
                       <Typography>
                         <Typography.Paragraph
                           style={{
                             whiteSpace: "pre-wrap",
                             fontSize: "15px",
+                            color: colorMode === "dark" ? "#fff" : "#000",
                           }}
-                          ellipsis={{ rows: 6 }}
+                          ellipsis={{ rows: 4 }}
                         >
                           {anime.description || "暂无介绍"}
                         </Typography.Paragraph>
