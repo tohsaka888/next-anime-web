@@ -9,6 +9,7 @@ import {
 import { List } from "antd";
 import { useRouter } from "next/router";
 import React, { useContext } from "react";
+import useScreenSize from "../hook/useScreenSize";
 import { ResultProps } from "../Result/type";
 import { Context } from "../Update/context";
 
@@ -66,6 +67,7 @@ function PopoverContent({
   setValue: Function;
 }): JSX.Element {
   const breakpoint = useBreakpoint();
+  const { width } = useScreenSize();
 
   return (
     <List
@@ -79,7 +81,7 @@ function PopoverContent({
       renderItem={(item, index) => (
         <RenderItem item={item} index={index} setValue={setValue} />
       )}
-      style={{ width: breakpoint === "base" ? "100vw" : "40vw" }}
+      style={{ width: breakpoint === "base" ? width - 30 : "40vw" }}
     />
   );
 }
