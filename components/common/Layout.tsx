@@ -10,7 +10,7 @@ type Props = {
   children: ReactNode;
 };
 
-const Sider = dynamic(() => import("./Sider"));
+const Sider = dynamic(() => import("./Sider"), { ssr: false });
 
 function Layout({ children }: Props): JSX.Element {
   const router = useRouter();
