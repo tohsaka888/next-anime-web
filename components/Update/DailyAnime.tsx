@@ -39,7 +39,7 @@ function DailyAnime({ date, updates }: DailyAnimeProps) {
             justify={"space-between"}
             width={["330px", "100%"]}
           >
-            <Wrap spacing={["24px", "36px"]}>
+            <Wrap spacing={["24px", "24px"]}>
               {updates.map((item, index) => (
                 <AnimeInfo {...item} key={index} />
               ))}
