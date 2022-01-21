@@ -1,6 +1,7 @@
 import Script from "next/script";
 import * as React from "react";
 import videojs from "video.js";
+// import "videojs-mobile-ui/dist/videojs-mobile-ui.css";
 
 // Styles
 import "video.js/dist/video-js.css";
@@ -14,6 +15,11 @@ const initialOptions: videojs.PlayerOptions = {
   controls: true,
   fluid: true,
   preload: "auto",
+  autoplay: "true",
+  liveui: true,
+  notSupportedMessage: "播放资源失效,请尝试换源播放",
+  playbackRates: [0.5, 1, 1.5, 2],
+
   controlBar: {
     volumePanel: {
       inline: false,
@@ -32,6 +38,7 @@ const VideoPlayer: React.FC<IVideoPlayerProps> = ({ options, isReady }) => {
           ...initialOptions,
           ...options,
         }).ready(function () {});
+        
       }
     }
     if (!isReady) {
@@ -51,16 +58,9 @@ const VideoPlayer: React.FC<IVideoPlayerProps> = ({ options, isReady }) => {
                 videoNode.current = refs;
               }
             }}
-            className="video-js vjs-big-play-centered"
+            className="video-js vjs-big-play-centered vjs-playback-rate"
             style={{ width: "100%", height: "100%" }}
-          >
-            {/* {options.sources && (
-              <source
-                src={options.sources[0].src}
-                type={options.sources[0].type}
-              />
-            )} */}
-          </video>
+          />
         </div>
       ) : (
         <video style={{ width: "100%", height: "100%" }} className="video-js">
