@@ -10,12 +10,16 @@ import {
   Wrap,
 } from "@chakra-ui/react";
 import { Button, Image, message, Typography } from "antd";
+import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import React, { useCallback, useEffect, useState } from "react";
 import useScreenSize from "../../components/hook/useScreenSize";
 import { Source } from "../../components/styles/search.styles";
-import VideoPlayer from "../../components/VideoPlayer";
 import { AnimeDetailProps } from "../../config/type";
+
+const VideoPlayer = dynamic(() => import("../../components/VideoPlayer"), {
+  ssr: false,
+});
 
 function AnimeDetail() {
   const router = useRouter();
