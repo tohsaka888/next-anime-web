@@ -2,14 +2,15 @@ import { Box, Flex, useBreakpoint, useColorMode } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import React, { ReactNode, useEffect, useRef, useState } from "react";
 import Header from "./Header";
-import Sider from "./Sider";
 import { Context } from "../Update/context";
 import { Spin } from "antd";
 import SearchArea from "./SearchArea";
-import useScreenSize from "../hook/useScreenSize";
+import dynamic from "next/dynamic";
 type Props = {
   children: ReactNode;
 };
+
+const Sider = dynamic(() => import("./Sider"));
 
 function Layout({ children }: Props): JSX.Element {
   const router = useRouter();
@@ -18,9 +19,9 @@ function Layout({ children }: Props): JSX.Element {
   const { colorMode } = useColorMode();
   return (
     <Box position={"relative"}>
-      <Header />
-      {breakpoint === "base" && <SearchArea />}
       <Context.Provider value={{ loading, setLoading }}>
+        <Header />
+        {breakpoint === "base" && <SearchArea />}
         <Flex overflow={"auto"} justify={["center", "flex-start"]}>
           {!router.pathname.includes("/anime") && <Sider />}
           <Box
