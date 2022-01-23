@@ -13,6 +13,7 @@ import dynamic from "next/dynamic";
 // import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useCallback, useContext, useEffect, useState } from "react";
+import { MenuShowContext } from "../../components/common/Context";
 import useScreenSize from "../../components/hook/useScreenSize";
 import { ResultProps } from "../../components/Result/type";
 import { Score, Source } from "../../components/styles/search.styles";
@@ -42,11 +43,12 @@ const SearchResult: NextPage<{ result: ResultProps[] | [] }> = ({ result }) => {
       props?.setLoading(false);
     }
   }, [getAnimeInfo, props, result]);
+  const menuProps = useContext(MenuShowContext);
   return (
     <Spin spinning={props?.loading}>
       <Box
         h={height - 60}
-        w={[width, "85vw"]}
+        w={[width, menuProps?.menuShow ? "85vw" : "95vw"]}
         overflow={"auto"}
         padding={"16px"}
         overflowX={"hidden"}
