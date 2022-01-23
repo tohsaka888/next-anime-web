@@ -1,25 +1,18 @@
 import {
-  Box,
-  Flex,
   IconButton,
   Input,
   InputGroup,
   InputRightElement,
-  useColorMode,
 } from "@chakra-ui/react";
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import { MdWbSunny, MdDarkMode, MdSearch } from "react-icons/md";
-import { AiFillGithub } from "react-icons/ai";
-import Image from "next/image";
-import styles from "../../styles/Home.module.css";
+import React, { useEffect, useState } from "react";
+import { MdSearch } from "react-icons/md";
 import { useRouter } from "next/router";
-import { animeUrl, wsAnimeUrl } from "../../config/baseUrl";
+import { wsAnimeUrl } from "../../config/baseUrl";
 import { Popover } from "antd";
 import PopoverContent from "./PopoverContent";
 import { ResultProps } from "../Result/type";
 
 function SearchArea() {
-  const { colorMode, toggleColorMode } = useColorMode();
   const router = useRouter();
   const [value, setValue] = useState<string>("");
   const [result, setResult] = useState<ResultProps[]>([]);
@@ -38,9 +31,6 @@ function SearchArea() {
 
     return () => {
       ws.close();
-      ws.onclose = () => {
-        // console.log("websocket已关闭");
-      };
     };
   }, [value]);
   return (
